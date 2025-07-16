@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mağazam - Telefon və Məişət Texnikası</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #0a74da;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .product {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 10px;
+            text-align: center;
+        }
+        .product img {
+            width: 100%;
+            height: 150px;
+            object-fit: contain;
+        }
+        button {
+            background-color: #0a74da;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #075ab4;
+        }
+        #cart {
+            background: white;
+            padding: 15px;
+            margin: 20px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Mağazam</h1>
+        <p>Telefon və Məişət Texnikası Satışı</p>
+    </header>
+
+    <div class="products" id="productList"></div>
+
+    <div id="cart">
+        <h2>Səbət</h2>
+        <ul id="cartItems"></ul>
+        <button onclick="orderWhatsApp()">WhatsApp ilə sifariş et</button>
+    </div>
+
+    <script>
+        const products = [
+            { id: 1, name: "iPhone 14 Pro", price: 3200, image: "https://via.placeholder.com/200x150?text=iPhone+14+Pro" },
+            { id: 2, name: "Samsung Galaxy S23", price: 2800, image: "https://via.placeholder.com/200x150?text=Galaxy+S23" },
+            { id: 3, name: "Tozsoran", price: 450, image: "https://via.placeholder.com/200x150?text=Tozsoran" },
+            { id: 4, name: "Blender", price: 120, image: "https://via.placeholder.com/200x150?text=Blender" },
+        ];
+
+        const cart = [];
+
+        function displayProducts() {
+            const productList = document.getElementById('productList');
+            products.forEach(product => {
+                const div = document.createElement('div');
+                div.className = 'product';
+                div.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p>Qiymət: ${product.price} AZN</p>
+                    <button onclick="addToCart(${product.id})">Səbətə əlavə et</button>
+                `;
+                productList.appendChild(div);
+            });
+        }
+
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            cart.push(product);
+            displayCart();
+        }
+
+        function displayCart() {
+            const cartItems = document.getElementById('cartItems');
+            cartItems.innerHTML = '';
+            cart.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.textContent = `${item.name} - ${item.price} AZN`;
+                cartItems.appendChild(li);
+            });
+        }
+
+        function orderWhatsApp() {
+            if (cart.length === 0) {
+                alert("Səbət boşdur!");
+                return;
+            }
+            let message = "Salam, sifariş etmək istəyirəm:%0A";
+            cart.forEach(item => {
+                message += `- ${item.name} - ${item.price} AZN%0A`;
+            });
+            const phone = "994559400875"; // Nömrəni buraya əlavə et
+            const url = `https://wa.me/${phone}?text=${message}`;
+            window.open(url, '_blank');
+        }
+
+        displayProducts();
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mağazam - Telefon və Məişət Texnikası</title>
+<style>
+body {font-family: Arial, sans-serif; background-color: #fff; color: #333; margin: 0; padding: 0;}
+header {background-color: #d32f2f; color: white; padding: 20px; text-align: center;}
+button {background-color: #d32f2f; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer;}
+button:hover {background-color: #b71c1c;}
+.product {border: 1px solid #ddd; border-radius: 8px; padding: 10px; background: #fff;}
+.products {display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; padding: 20px;}
+.product img {width: 100%; height: 150px; object-fit: contain;}
+#cart {background: #fff; padding: 15px; margin: 20px; border-radius: 8px;}
+</style>
+</head>
+<body>
+<header><h1>Mağazam</h1><p>Telefon və Məişət Texnikası Satışı</p></header>
+<div class="products" id="productList"></div>
+<div id="cart">
+<h2>Səbət</h2>
+<ul id="cartItems"></ul>
+<button onclick="orderWhatsApp()">WhatsApp ilə sifariş et</button>
+</div>
+<script>/* JavaScript kodları əvvəlki kimi eyni qalır */</script>
+</body>
+</html>
+
